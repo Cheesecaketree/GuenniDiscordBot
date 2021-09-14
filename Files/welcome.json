@@ -3,14 +3,15 @@
         "Hallo {name}! Ich hoffe, es geht dir gut.",
         "Hey {name} du jhaggat!",
         "{name} ist hier! Guten Tag!",
-        "Ich wünsche dir einen guten Tag {name}!",
+        "Ich wünsche dir einen guten {tageszeit} {name}!",
         "Hallo {name}. Du bist richtig schwitze!",
         "Hallo {name}. Du bist wundervoll!",
         "Ich mag dich {name}!",
-        "Hui Hui Hui, {name} ist hier!",
+        "Guten {tageszeit} {name}!",
         "Hey {name}, kannst du mich audisch verstehen?",
         "Viel Spaß bei was auch immer du hier machst, {name}.",
         "Yo {name} ich kann logischer denken als du!",
-        "Hiermit zeige ich {name} für das Beitreten dieses Kanals an!"
+        "Hiermit zeige ich {name} für das Beitreten dieses Kanals an!",
+        "Guten {tageszeit} {name}! Ich hoffe es geht dir gut."
     ]
 }

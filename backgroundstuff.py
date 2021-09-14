@@ -13,7 +13,25 @@ def get_uhrzeit():
 	generate_voice(f"Es ist gerade {now.strftime('%H')} Uhr {now.strftime('%M')}", filename)
 	return filename
 
-# generiert verschiedene einfache Textnachrichten.
+# gibt die Tageszeit als String zurück. Definition von Tageszeiten ist nicht ganz klar
+def get_time_of_day():
+	now = datetime.now()
+	h = now.hour
+
+	if 5 < h < 11:
+		return "Morgen"
+	elif 11 < h < 13:
+		return "Mittag"
+	elif 13 < h < 22:
+		return "Abend"
+	else:
+		return "Tag"
+
+'''
+Generiert Texte für verschiedene Sprachausgaben.
+Usecase gibt an, für welches Event ein Text benötig wird. Dementsprechend wird dann
+auf die Datei mit den passenden Texten zugegriffen
+'''
 def generate_text(usecase,u=None, t=None, o=None):
 	validuse = {
 	"welcome":"Files/welcome.json",
@@ -27,7 +45,7 @@ def generate_text(usecase,u=None, t=None, o=None):
 	
 	if usecase in validuse:
 		filename = f"{usecase}{randStr(N=4)}"
-		nachricht = get_random_item(validuse[usecase]).format(name=u,ziel=t,author=o)
+		nachricht = get_random_item(validuse[usecase]).format(name=u,ziel=t,author=o, tageszeit=get_time_of_day())
 		generate_voice(nachricht, filename)
 		return filename
 
