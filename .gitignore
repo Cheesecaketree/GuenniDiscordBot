@@ -3,5 +3,4 @@ config.json
 
 # ignore all log files
 *.log
-
 testkram/
