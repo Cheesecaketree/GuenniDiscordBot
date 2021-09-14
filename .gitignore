@@ -1,6 +1,5 @@
 __pycache__
 config.json
 
-# ignore all log files
 *.log
-testkram/
+config.json
