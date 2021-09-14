@@ -15,17 +15,21 @@ def get_uhrzeit():
 
 # gibt die Tageszeit als String zurück. Definition von Tageszeiten ist nicht ganz klar
 def get_time_of_day():
-	now = datetime.now()
-	h = now.hour
+    now = datetime.now()
+    h = now.hour
 
-	if 5 < h < 11:
-		return "Morgen"
-	elif 11 < h < 13:
-		return "Mittag"
-	elif 13 < h < 22:
-		return "Abend"
-	else:
-		return "Tag"
+    if 5 <= h < 11:
+        return "Morgen"
+    elif 11 <= h < 13:
+        return "Mittag"
+    elif 13 <= h < 17:
+        return "Nachmittag"
+    elif 17 <= h < 23:
+        return "Abend"
+    elif 23<= h < 5:
+        return "Nacht"
+    else:
+        return "Tag"
 
 '''
 Generiert Texte für verschiedene Sprachausgaben.

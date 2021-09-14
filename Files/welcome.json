@@ -2,7 +2,7 @@
     "content": [
         "Hallo {name}! Ich hoffe, es geht dir gut.",
         "Hey {name} du jhaggat!",
-        "{name} ist hier! Guten Tag!",
+        "{name} ist hier! Guten {tageszeit}!",
         "Ich wünsche dir einen guten {tageszeit} {name}!",
         "Hallo {name}. Du bist richtig schwitze!",
         "Hallo {name}. Du bist wundervoll!",
