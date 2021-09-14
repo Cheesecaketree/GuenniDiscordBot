@@ -1,3 +1,0 @@
-2021-09-14 11:49:25,778 | discord.client | INFO | Got a request to RESUME the websocket.
-2021-09-14 11:49:26,036 | discord.gateway | INFO | Shard ID None has sent the RESUME payload.
-2021-09-14 11:49:26,159 | discord.gateway | INFO | Shard ID None has successfully RESUMED session cfd95abb7e896e7488ce79c409d15c51 under trace ["gateway-prd-main-sc60",{"micros":3572,"calls":["discord-sessions-blue-prd-2-74",{"micros":17}]}].
