@@ -140,7 +140,7 @@ def remove_umlaut(string):
     return string
 
 def get_config(name):
-	with open('/home/Guenni_Bot/config.json', "r") as file:
+	with open('config.json', "r") as file:
 		config = json.load(file)
 		data = config[name]
 		return data
