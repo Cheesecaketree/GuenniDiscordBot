@@ -4,8 +4,10 @@ FROM gorialis/discord.py
 RUN mkdir -p /usr/src/bot
 WORKDIR /usr/src/bot
 
+# add files to container / to working directory
 ADD ./config.json /usr/src/bot/
 ADD ./Files /usr/src/bot/
+
 # copy the dependencies file to the working directory
 COPY requirements.txt .
 
