@@ -1,4 +1,0 @@
-#!/usr/bin/bash
-
-screen -dm -S bot
-screen -S bot -X stuff "python3 /home/Guenni_Bot/main.py\n"
