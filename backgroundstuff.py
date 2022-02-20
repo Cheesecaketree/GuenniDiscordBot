@@ -139,18 +139,15 @@ def remove_umlaut(string):
     string = string.decode('utf-8')
     return string
 
+
 def get_config(name):
 	with open('config.json', "r") as file:
 		config = json.load(file)
 		data = config[name]
 		return data
-
-def get_list(path):
+	
+def get_random_item(path):
 	with open(path) as file:
 		json_obj = json.load(file)
 		return json_obj['content']
-
-def get_random_item(path):
-	content = get_list(path)
-	return random.choice(content)
 

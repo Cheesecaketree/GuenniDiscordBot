@@ -7,6 +7,7 @@ WORKDIR /usr/src/bot
 # add files to container / to working directory
 ADD ./config.json /usr/src/bot/
 ADD ./Files /usr/src/bot/
+ADD ./cogs /usr/src/bot/
 
 # install python libraries
 COPY requirements.txt .
