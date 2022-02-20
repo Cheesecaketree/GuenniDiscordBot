@@ -8,12 +8,14 @@ WORKDIR /usr/src/bot
 ADD ./config.json /usr/src/bot/
 ADD ./Files /usr/src/bot/
 
-# copy the dependencies file to the working directory
+# install python libraries
 COPY requirements.txt .
-
-# install dependencies
 RUN pip install -r requirements.txt
+
+RUN apt install ffmpeg
+
 
 COPY . .
 
-CMD [ "python3", "discord_bot.py" ]
+CMD [ "pytohn3", "test.py" ]
+# CMD [ "python3", "discord_bot.py" ]
