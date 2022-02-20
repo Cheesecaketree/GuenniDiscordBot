@@ -4,6 +4,7 @@ from discord.ext import commands
 import random
 import logging
 import asyncio
+from queue import Queue
 
 logging.basicConfig(format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',filename='logfile.log', level=logging.INFO)
 description = '''Ein super toller Bot der tolle Sachen machen kann!'''
@@ -183,23 +184,10 @@ async def sendeLiebe(ctx, *args):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
-# Spielt einen Teil von einem Kraftwerksong
-@client.command(brief='Die Roboter.', description="...")
-async def roboter(ctx):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
-        return
-    file = "Files/roboter.mp3"
-    channel_name = ctx.message.author.voice.channel.name
-    member = ctx.message.author
-
-    channel_queue_enqueue(file, channel_name)
-    await queue_abspielen(member)
-
 @client.command(hidden = True)
 async def ping(ctx):
     logging.info("Ping!")
-    await ctx.send("Pong!")
+    await ctx.send('Pong! {0}'.format(round(client.latency, 1)))
 
 
 
@@ -243,26 +231,6 @@ async def queue_abspielen(member):
             return
         logging.debug("Queue not empty. Bot is playing next file")
 
-class Queue:
-    def __init__(self, name):
-        self.queue = asyncio.Queue()
-        self.id = name
-        
-    def isEmpty(self):
-        return self.queue.empty()
-    
-    def enqueue(self, item):
-        self.queue.put_nowait(item)
-        
-    def done(self):
-        self.queue.task_done()
-
-    def dequeue(self):
-        if not self.queue.empty():
-            return self.queue.get_nowait()
-        
-    def get_name(self):
-        return self.id
 
 def get_channel_queue_pos(channel_name):
 	for queue in channel_queues:
