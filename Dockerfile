@@ -17,5 +17,4 @@ RUN apt install ffmpeg
 
 COPY . .
 
-CMD [ "pytohn3", "test.py" ]
-# CMD [ "python3", "discord_bot.py" ]
+CMD [ "python3", "discord_bot.py" ]
