@@ -15,7 +15,6 @@ RUN pip install -r requirements.txt
 
 RUN apt install ffmpeg
 
-
 COPY . .
 
 CMD [ "python3", "discord_bot.py" ]

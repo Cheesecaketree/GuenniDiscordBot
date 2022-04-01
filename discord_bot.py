@@ -171,12 +171,6 @@ async def sendeLiebe(ctx, *args):
 async def clear(ctx, amount=5):
     await ctx.channel.purge(limit=amount)
 
-'''
-@client.command(hidden = True)
-async def ping(ctx):
-    logging.info("Ping!")
-    await ctx.send('Pong! Ping beträgt: {0}ms'.format(round(client.latency, 1)))
-'''
 
 # Verbindet mit einem Channel, wenn es möglich ist
 async def connect_when_possible(member):

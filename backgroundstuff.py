@@ -13,6 +13,11 @@ def get_uhrzeit():
 	generate_voice(f"Es ist gerade {now.strftime('%H')} Uhr {now.strftime('%M')}", filename)
 	return filename
 
+def get_status():
+    with open("Files/status.json", "r") as f:
+        status = json.load(f)
+    return status
+
 # gibt die Tageszeit als String zurück. Definition von Tageszeiten ist nicht ganz klar
 def get_time_of_day():
 	now = datetime.now()
