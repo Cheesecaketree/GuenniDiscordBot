@@ -259,12 +259,12 @@ async def queue_abspielen(member):
 def is_muted(member):
     events = backgroundstuff.load_json("Files/events.json")
     channel = member.voice.channel
-    channel_name = (channel.name).lower()
+    channel_id = channel.id
     
-    if channel_name in events["bot-mute"]:
-        mute_time = events["bot-mute"][channel_name]
+    if channel_id in events["bot-mute"]:
+        mute_time = events["bot-mute"][channel_id]
         if int(time.time()) > mute_time:
-            del events["bot-mute"][channel_name]
+            del events["bot-mute"][channel_id]
             with open ("Files/events.json", "w") as f:
                 json.dump(events, f)
             return False

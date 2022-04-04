@@ -85,6 +85,7 @@
             "not-in-channel": "Anscheinend bist du nicht in einem Voicechannel.",
             "muted": "Sorry, der Bot ist gerade für diesen Channel stummgeschaltet.",
             "error":"Da ist wohl was schief gelaufen... \n Bitte versuche es später erneut.",
+            "not-found": "Ich finde {} hier nicht. Sicher, dass du es richtig geschrieben hast?",
             "weather": {
                 "no-city": "Es wurde keine Stadt angegeben. Bitte versuche es später erneut.",
                 "no-weather": "Da ist wohl was schief gelaufen... \n Es konnte kein Wetter für die angegebene Stadt gefunden werden. Bitte versuche es später erneut."
@@ -114,6 +115,7 @@
             "not-in-channel": "It seems you're not in a voicechannel.",
             "error":"Something went wrong... \n Please try again later.",
             "muted": "Sorry, the bot is muted for this channel at the moment.",
+            "not-found": "Can't find {} on this server. Are you sure you spelled it correctly?",
             "weather": {
                 "no-city": "No city was specified. Please try again later.",
                 "no-weather": "Something went wrong... \n There was no weather for the specified city. Please try again later."

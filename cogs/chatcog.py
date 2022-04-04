@@ -53,9 +53,7 @@ class ChatCog(commands.Cog):
     async def mute(self, ctx, minutes=None, channel=None):
         if channel is None or minutes is None:
             await ctx.send(self.chat_texts["mute"]["usage"])
-        
         config = backgroundstuff.load_json("config.json")
-        
         allowed_roles = config["privileged-roles"]
         author_roles = ctx.message.author.roles
         
@@ -63,23 +61,25 @@ class ChatCog(commands.Cog):
             if role.name not in allowed_roles:
                 await ctx.send(self.chat_texts["mute"]["role-error"])
                 return
-        
         max_mute = config["max-mute"]
         if minutes > max_mute:
             await ctx.send(self.chat_texts["mute"]["too-long"].format(max_mute))
             return
         
-        channel = channel.lower()
+        try:
+            channel = discord.utils.get(ctx.guild.channels, name=channel)
+            channel_id = channel.id
+        except:
+            await ctx.send(self.chat_texts["not-found"].format(channel))
         events = backgroundstuff.load_json("Files/events.json")
-        
-        if channel in events["bot-mute"]:
-            current_mute = events["bot-mute"][channel]
+        if channel_id in events["bot-mute"]:
+            current_mute = events["bot-mute"][channel_id]
             if current_mute > int(time.time() + int(minutes * 60)):
                 await ctx.send(self.chat_texts["mute"]["already-muted"].format(int(current_mute - int(time.time())) / 60))
                 return
             
         mute_time = int(time.time()) + (int(minutes) * 60)
-        events["bot-mute"][channel] = mute_time
+        events["bot-mute"][channel_id] = mute_time
         with open("Files/events.json", "w") as f:
             json.dump(events, f)
         await ctx.send(self.chat_texts["mute"]["confirmation"].format(minutes))
@@ -90,7 +90,6 @@ class ChatCog(commands.Cog):
             await ctx.send(self.chat_texts["unmute"]["usage"])
         
         config = backgroundstuff.load_json("config.json")
-        
         allowed_roles = config["privileged-roles"]
         author_roles = ctx.message.author.roles
         
@@ -99,11 +98,12 @@ class ChatCog(commands.Cog):
                 await ctx.send(self.chat_texts["unmute"]["role-error"])
                 return
         
-        channel = channel.lower()
         events = backgroundstuff.load_json("Files/events.json")
-        
-        if channel in events["bot-mute"]:
-            del events["bot-mute"][channel]
+        channel = discord.utils.get(ctx.guild.channels, name=channel)
+        channel_id = channel.id
+          
+        if channel_id in events["bot-mute"]:
+            del events["bot-mute"][channel_id]
             with open("Files/events.json", "w") as f:
                 json.dump(events, f)
             await ctx.send(self.chat_texts["unmute"]["confirmation"])
