@@ -7,12 +7,13 @@ WORKDIR /usr/src/bot
 # add files to container / to working directory
 ADD ./config.json /usr/src/bot/
 ADD ./Files /usr/src/bot/
+ADD ./cogs /usr/src/bot/
 
-# copy the dependencies file to the working directory
+# install python libraries
 COPY requirements.txt .
-
-# install dependencies
 RUN pip install -r requirements.txt
+
+RUN apt install ffmpeg
 
 COPY . .
 

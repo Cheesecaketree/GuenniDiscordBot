@@ -1,8 +1,13 @@
 {
-    "content": [
+    "de": [
         "Oh, {name} streamt!",
         "Cooler Stream {name}!",
         "Guckt mal den Stream von {name}",
         "Hey {name}, toller Stream!"
+    ],
+    "en": [
+        "Oh, {name} is streaming!",
+        "Hey {name}, cool stream!",
+        "Go watch the stream of {name}"
     ]
 }

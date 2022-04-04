@@ -1,10 +1,17 @@
 {
-    "content": [
-        "{ziel} ist wirklich toll!",
-        "Ich mag {ziel} wirklich sehr gerne!",
-        "Hey {ziel}! {author} mag dich!",
-        "Aufgepasst! {author} findet {ziel} gerade sehr toll!",
-        "Achtung! Achtung! {ziel} ist ein tolles Wesen!",
-        "Jetzt gibts ganz viel Liebe für {ziel}! Liebe, Liebe, Liebe, Liebe, Liebe, Liebe."
+    "de": [
+        "{target} ist wirklich toll!",
+        "Ich mag {target} wirklich sehr gerne!",
+        "Hey {target}! {author} mag dich!",
+        "Aufgepasst! {author} findet {target} gerade sehr toll!",
+        "Achtung! Achtung! {target} ist ein tolles Wesen!",
+        "Jetzt gibts ganz viel Liebe für {target}! Liebe, Liebe, Liebe, Liebe, Liebe, Liebe."
+    ],
+    "en": [
+        "{target} is really cool!",
+        "I really like {target} a lot!",
+        "Hey {target}! {author} likes you!",
+        "Attention! Attention! {target} is a really cool person!",
+        "Here comes a lot of love for {target}! Love, love, love, love, love, love."
     ]
 }

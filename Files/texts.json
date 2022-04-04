@@ -1,0 +1,145 @@
+{
+    "descriptions": {
+        "de": {
+            "bot-description": "Wundervoller Bot, der gerne redet",
+            "weather": {
+                "brief": "Aktuelles Wetter für Stadt",
+                "description": "Aktuelles Wetter für die angegebene Stadt.\n Verwendung: ?weather <Stadt>\n Beispiel: ?weather Berlin"
+            },
+            "fact": {
+                "brief": "Zufälliger Fakt",
+                "description": "Kommt in deinen Channel und sagt einen zufälligen Fakt.\n Verwendung: ?fact"
+            },
+            "timeOD": {
+                "brief": "Sagt die Zeit",
+                "description": "Kommt in deinen Channel und sagt die Uhrzeit.\n Verwendung: ?time"
+            },
+            "insult": {
+                "brief": "Beleidigt die angegebene Person",
+                "description": "Kommt in deinen Channel und beleidigt die Person.\n Verwendung: ?insult <Person>\n Beispiel: ?insult Mustermensch"
+            },
+            "joke": {
+                "brief": "Zufälliger Witz",
+                "description": "Kommt in deinen Channel und sagt einen zufälligen Witz.\n Verwendung: ?joke"
+            },
+            "sendLove": {
+                "brief": "Sendet Liebe an eine Person",
+                "description": "Kommt in deinen Channel und sagt etwas nettes zur angegebenen Person.\n Verwendung: ?sendLove <Person>\n Beispiel: ?sendLove Mustermensch"
+            },
+            "clear": {
+                "brief": "Löscht Nachrichten im Chat",
+                "description": "Löscht standardmäßig 10 Nachrichten im Chat.\n Verwendung: ?clear <menge>\n Beispiel: ?clear 10"
+            },
+            "mute": {
+                "brief": "Bot stumm schalten",
+                "description": "Stumm schalten. Nur für Admins. \n Verwendung: ?mute"
+            },
+            "unmute": {
+                "brief": "Bot wieder umuten",
+                "description": "Bot wieder unmuten. Nur für Admins. \n Verwendung: ?unmute"
+            }
+        },
+        "en": {
+            "bot-description": "Wonderful bot, that can talk",
+            "weather": {
+                "brief": "Current weather for city",
+                "description": "Current weather for the specified city.\n Usage: ?weather <City>\n Example: ?weather Berlin"
+            },
+            "fact": {
+                "brief": "Random fact",
+                "description": "Appears in your channel and says a random fact.\n Usage: ?fact"
+            },
+            "timeOD": {
+                "brief": "Says the time",
+                "description": "Appears in your channel and says the time.\n Usage: ?time"
+            },
+            "insult": {
+                "brief": "Insults the specified person",
+                "description": "Appears in your channel and insults the person.\n Usage: ?insult <Person>\n Example: ?insult Mustermensch"
+            },
+            "joke": {
+                "brief": "Random joke",
+                "description": "Appears in your channel and says a random joke.\n Usage: ?joke"
+            },
+            "sendLove": {
+                "brief": "Sends love to a person",
+                "description": "Appears in your channel and says something nice to the specified person.\n Usage: ?sendLove <Person>\n Example: ?sendLove Mustermensch"
+            },
+            "clear": {
+                "brief": "Clears the chat",
+                "description": "Clears the chat.\n Usage: ?clear"
+            },
+            "mute": {
+                "brief": "Mutes the bot",
+                "description": "Mutes the bot. Only for Admins. \n Usage: ?mute"
+            },
+            "unmute": {
+                "brief": "Unmutes the bot",
+                "description": "Unmutes the bot. Only for Admins. \n Usage: ?unmute"
+            }
+            
+        }
+    },
+    "chat-texts": {
+        "de": {
+            "not-in-channel": "Anscheinend bist du nicht in einem Voicechannel.",
+            "muted": "Sorry, der Bot ist gerade für diesen Channel stummgeschaltet.",
+            "error":"Da ist wohl was schief gelaufen... \n Bitte versuche es später erneut.",
+            "not-found": "Ich finde {} hier nicht. Sicher, dass du es richtig geschrieben hast?",
+            "weather": {
+                "no-city": "Es wurde keine Stadt angegeben. Bitte versuche es später erneut.",
+                "no-weather": "Da ist wohl was schief gelaufen... \n Es konnte kein Wetter für die angegebene Stadt gefunden werden. Bitte versuche es später erneut."
+            },
+            "insult": {
+                "no-name": "Es wurde kein Name angegeben. Bitte versuche es erneut."
+            },
+            "sendLove": {
+                "no-name": "Es wurde kein Name angegeben. Bitte versuche es erneut."
+            },
+            "ping": "Pong! Ping beträgt {0}ms",
+            "mute": {
+                "confirm": "Der Bot wird für {} Minuten stummgeschaltet.",
+                "role-error": "Anscheinend besitzt du keine ausreichenden Berechtigungen",
+                "too-long": "Die angegebene Dauer ist zu lang. Du kannst den Bot für eine maximale Dauer von {} Minuten stumm schalten. \n Bitte kontaktiere den Administrator des Bots, wenn du die maximale Dauer ändern möchtest.",
+                "already-muted": "Der Bot ist bereits für die nächste {} Minuten stummgeschaltet.",
+                "usage": "Verwendung: ?mute <Dauer> <Channel>"
+            },
+            "unmute": {
+                "confirm": "Der Bot wird wieder unmuted.",
+                "role-error": "Anscheinend besitzt du keine ausreichenden Berechtigungen",
+                "already-unmuted": "Der Bot ist bereits unmuted.",
+                "usage": "Verwendung: ?unmute <Channel>"
+            }
+        },
+        "en": {
+            "not-in-channel": "It seems you're not in a voicechannel.",
+            "error":"Something went wrong... \n Please try again later.",
+            "muted": "Sorry, the bot is muted for this channel at the moment.",
+            "not-found": "Can't find {} on this server. Are you sure you spelled it correctly?",
+            "weather": {
+                "no-city": "No city was specified. Please try again later.",
+                "no-weather": "Something went wrong... \n There was no weather for the specified city. Please try again later."
+            },
+            "insult": {
+                "no-name": "No name was specified. Please try again."
+            },
+            "sendLove": {
+                "no-name": "No name was specified. Please try again."
+            },
+            "ping": "Pong! Ping beträgt {0}ms",
+            "mute": {
+                "confirmation": "The bot will be muted for {} minutes.",
+                "role-error": "It seems you don't have the required role",
+                "too-long": "The time you specified is too long. You can mute the bot for a maximum of {} minutes. \n Please contact the bots administrator if you want to change the maximum duration.",
+                "already-muted": "The bot is already muted for the next {} minutes.",
+                "usage": "Usage: ?mute <duration_in_min> <channel>"
+            },
+            "unmute": {
+                "confirmation": "The bot will be unmuted.",
+                "role-error": "It seems you don't have the required role",
+                "already-unmuted": "The bot is already unmuted.",
+                "unmute": "Usage: ?unmute <channel>"
+            }
+        }
+    }
+}

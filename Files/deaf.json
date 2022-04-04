@@ -1,6 +1,10 @@
 {
-    "content": [
+    "de": [
         "{name} höhrt nichts mehr.",
         "{name} ist taub"
+    ],
+    "en": [
+        "{name} is deaf",
+        "{name} cant hear anymore"
     ]
 }
