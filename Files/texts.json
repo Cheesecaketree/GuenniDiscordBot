@@ -98,14 +98,14 @@
             },
             "ping": "Pong! Ping beträgt {0}ms",
             "mute": {
-                "confirm": "Der Bot wird für {} Minuten stummgeschaltet.",
+                "confirmation": "Der Bot wird für {} Minuten stummgeschaltet.",
                 "role-error": "Anscheinend besitzt du keine ausreichenden Berechtigungen",
                 "too-long": "Die angegebene Dauer ist zu lang. Du kannst den Bot für eine maximale Dauer von {} Minuten stumm schalten. \n Bitte kontaktiere den Administrator des Bots, wenn du die maximale Dauer ändern möchtest.",
                 "already-muted": "Der Bot ist bereits für die nächste {} Minuten stummgeschaltet.",
                 "usage": "Verwendung: ?mute <Dauer> <Channel>"
             },
             "unmute": {
-                "confirm": "Der Bot wird wieder unmuted.",
+                "confirmation": "Der Bot wird wieder unmuted.",
                 "role-error": "Anscheinend besitzt du keine ausreichenden Berechtigungen",
                 "already-unmuted": "Der Bot ist bereits unmuted.",
                 "usage": "Verwendung: ?unmute <Channel>"
