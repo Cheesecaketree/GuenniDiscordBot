@@ -134,6 +134,7 @@ class ChatCog(commands.Cog):
             await ctx.send("Current mutes for this bot:")
             await ctx.send(status)
             await ctx.send("Your current Channel: " + str(author.voice.channel.id))
+            await ctx.send(str(author.voice.channel.id))
             
             
     # deletes messages.
