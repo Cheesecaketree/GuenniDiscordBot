@@ -103,8 +103,9 @@ class ChatCog(commands.Cog):
         authorized = False
         
         for role in author_roles:
-            if role in allowed_roles:
+            if role.name in allowed_roles:
                 authorized = True
+                break
         
         if not authorized:
             await ctx.send(self.chat_texts["mute"]["role-error"])
@@ -130,8 +131,9 @@ class ChatCog(commands.Cog):
         
         with open("Files/events.json", "r") as f:
             status = json.load(f)
+            await ctx.send("Current mutes for this bot:")
             await ctx.send(status)
-            await ctx.send(str(author.voice.channel.id))
+            await ctx.send("Your current Channel: " + str(author.voice.channel.id))
             
             
     # deletes messages.
