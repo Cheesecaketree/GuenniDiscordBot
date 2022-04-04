@@ -108,7 +108,8 @@
                 "confirmation": "Der Bot wird wieder unmuted.",
                 "role-error": "Anscheinend besitzt du keine ausreichenden Berechtigungen",
                 "already-unmuted": "Der Bot ist bereits unmuted.",
-                "usage": "Verwendung: ?unmute <Channel>"
+                "usage": "Verwendung: ?unmute <Channel>",
+                "not-muted": "Der Bot ist nicht für diesen Channel stummgeschaltet."
             }
         },
         "en": {
@@ -138,7 +139,8 @@
                 "confirmation": "The bot will be unmuted.",
                 "role-error": "It seems you don't have the required role",
                 "already-unmuted": "The bot is already unmuted.",
-                "unmute": "Usage: ?unmute <channel>"
+                "unmute": "Usage: ?unmute <channel>",
+                "not-muted": "The bot is not muted for this channel."
             }
         }
     }
