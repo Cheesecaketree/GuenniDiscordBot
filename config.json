@@ -1,5 +1,5 @@
 {
     "token": "",
-    "language": "de",
-    "privileged-roles": ["@admin", "@günnimensch"]
+    "language": "en",
+    "privileged-roles": ["@admin", "@günnimensch", "@everyone"]
 }
