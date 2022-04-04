@@ -56,11 +56,17 @@ class ChatCog(commands.Cog):
         config = backgroundstuff.load_json("config.json")
         allowed_roles = config["privileged-roles"]
         author_roles = ctx.message.author.roles
+        authorized = False
         
         for role in author_roles:
-            if role.name not in allowed_roles:
-                await ctx.send(self.chat_texts["mute"]["role-error"])
-                return
+            if role.name in allowed_roles:
+                authorized = True
+                break
+        
+        if not authorized:
+            await ctx.send(self.chat_texts["mute"]["role-error"])
+            return
+        
         max_mute = config["max-mute"]
         if minutes > max_mute:
             await ctx.send(self.chat_texts["mute"]["too-long"].format(max_mute))
@@ -83,6 +89,8 @@ class ChatCog(commands.Cog):
         with open("Files/events.json", "w") as f:
             json.dump(events, f)
         await ctx.send(self.chat_texts["mute"]["confirmation"].format(minutes))
+        
+        
     
     @commands.command(hidden=True, brief=descriptions["unmute"]["brief"], description=descriptions["unmute"]["description"])
     async def unmute(self, ctx, channel=None):
@@ -92,11 +100,15 @@ class ChatCog(commands.Cog):
         config = backgroundstuff.load_json("config.json")
         allowed_roles = config["privileged-roles"]
         author_roles = ctx.message.author.roles
+        authorized = False
         
         for role in author_roles:
-            if role.name not in allowed_roles:
-                await ctx.send(self.chat_texts["unmute"]["role-error"])
-                return
+            if role in allowed_roles:
+                authorized = True
+        
+        if not authorized:
+            await ctx.send(self.chat_texts["mute"]["role-error"])
+            return
         
         events = backgroundstuff.load_json("Files/events.json")
         channel = discord.utils.get(ctx.guild.channels, name=channel)
