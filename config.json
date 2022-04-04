@@ -1,5 +1,6 @@
 {
     "token": "",
+    "openweathermap-api-key": "",
     "language": "de",
     "privileged-roles": ["@admin", "@günnimensch", "@everyone"],
     "max-mute": "120"

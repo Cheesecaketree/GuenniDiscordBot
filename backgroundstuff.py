@@ -13,7 +13,7 @@ def load_json(path):
         return data
 
 language = load_json("config.json")["language"]
-
+config = load_json("config.json")
 
 def get_time():
 	filename = f"uhrzeit_{randStr(N=4)}"
@@ -73,12 +73,17 @@ def generate_text(usecase,name=None, target=None, author=None):
 		logging.warning(f"ERROR in generate_text with usecase: {usecase}")
 		return
 
-# TOKEN for weather API must be moved to config or somewhere else!!
 def weather_message(pCity):
+	if config["openweathermap-api-key"] == "":
+		token = load_json("token.json")["weather-token"]
+	else:
+		token = config["openweathermap-api-key"]
+    
 	filename = f"weather_{randStr(N=4)}"
 	city = remove_umlaut(pCity.lower())
-	url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=ead5112e1fc36110be448eeb3a357bb2&units=metric'
-	res = requests.get(url.format(city))
+	url = 'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={token}&units=metric'
+	url = url.format(city=city, token=token)
+	res = requests.get(url)
 	data = res.json()
 
 	try:
