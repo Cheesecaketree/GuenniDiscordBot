@@ -112,8 +112,8 @@ class ChatCog(commands.Cog):
             return
         
         events = backgroundstuff.load_json("Files/events.json")
-        channel = discord.utils.get(ctx.guild.channels, name=channel)
-        channel_id = channel.id
+        channel = discord.utils.get(ctx.guild.voice_channels, name=channel)
+        channel_id = str(channel.id)
           
         if channel_id in events["bot-mute"]:
             del events["bot-mute"][channel_id]
