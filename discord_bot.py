@@ -9,7 +9,7 @@ import time
 import json
 from my_queue import Queue
 
-logging.basicConfig(format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',filename='logfile.log', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',filename='logfile.log', level=logging.INFO)
 language = backgroundstuff.load_json("config.json")["language"]
 descriptions = backgroundstuff.load_json("Files/texts.json")["descriptions"][language]
 chat_texts = backgroundstuff.load_json("Files/texts.json")["chat-texts"][language]
@@ -259,7 +259,7 @@ async def queue_abspielen(member):
 def is_muted(member):
     events = backgroundstuff.load_json("Files/events.json")
     channel = member.voice.channel
-    channel_id = channel.id
+    channel_id = str(channel.id)
     
     if channel_id in events["bot-mute"]:
         mute_time = events["bot-mute"][channel_id]
@@ -270,6 +270,7 @@ def is_muted(member):
             return False
         else:
             return True
+    return False
 
 def get_channel_queue_pos(channel_name):
 	for queue in channel_queues:

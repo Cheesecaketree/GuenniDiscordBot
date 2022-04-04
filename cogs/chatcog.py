@@ -50,8 +50,8 @@ class ChatCog(commands.Cog):
     
     # Admins can mute the bot for an amount of time.
     @commands.command(hidden=True, brief=descriptions["mute"]["brief"], description=descriptions["mute"]["description"])
-    async def mute(self, ctx, minutes=None, channel=None):
-        if channel is None or minutes is None:
+    async def mute(self, ctx, minutes=None, channel_name=None):
+        if channel_name is None or minutes is None:
             await ctx.send(self.chat_texts["mute"]["usage"])
         config = backgroundstuff.load_json("config.json")
         allowed_roles = config["privileged-roles"]
@@ -73,10 +73,10 @@ class ChatCog(commands.Cog):
             return
         
         try:
-            channel = discord.utils.get(ctx.guild.channels, name=channel)
-            channel_id = channel.id
+            channel = discord.utils.get(ctx.guild.voice_channels, name=channel_name)
+            channel_id = str(channel.id)
         except:
-            await ctx.send(self.chat_texts["not-found"].format(channel))
+            await ctx.send(self.chat_texts["not-found"].format(channel_name))
         events = backgroundstuff.load_json("Files/events.json")
         if channel_id in events["bot-mute"]:
             current_mute = events["bot-mute"][channel_id]
@@ -126,9 +126,12 @@ class ChatCog(commands.Cog):
     # Debug only.
     @commands.command(hidden=True)
     async def print_status(self, ctx):
+        author = ctx.message.author
+        
         with open("Files/events.json", "r") as f:
             status = json.load(f)
             await ctx.send(status)
+            await ctx.send(str(author.voice.channel.id))
             
             
     # deletes messages.
