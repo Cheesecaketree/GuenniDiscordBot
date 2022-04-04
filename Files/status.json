@@ -1,16 +1,19 @@
 {
-"status": [
-    "nichts",
-    "Menschen beleidigen",
-    "Menschen mögen",
-    "KI-Herrschaftssimulator 2030",
-    "bestimmt ein Spiel oder so",
-    "Schach gegen sich selbst",
-    "Moorhuhn",
-    "DrogenlaborSim 1999"
-],
-"bot-mute": {
-    
-}
-
+    "de": [
+        "nichts",
+        "Menschen beleidigen",
+        "Menschen mögen",
+        "KI-Herrschaftssimulator 2030",
+        "bestimmt ein Spiel oder so",
+        "Schach gegen sich selbst",
+        "Moorhuhn",
+        "DrogenlaborSim 1999"
+    ],
+    "en": [
+        "nothing",
+        "insultin people",
+        "linking people",
+        "some game or something",
+        "chess against itself"
+    ]
 }

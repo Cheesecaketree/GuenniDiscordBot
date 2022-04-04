@@ -1,0 +1,111 @@
+{
+    "descriptions": {
+        "de": {
+            "bot-description": "Wundervoller Bot, der gerne redet",
+            "weather": {
+                "brief": "Aktuelles Wetter für Stadt",
+                "description": "Aktuelles Wetter für die angegebene Stadt.\n Verwendung: ?weather <Stadt>\n Beispiel: ?weather Berlin"
+            },
+            "fact": {
+                "brief": "Zufälliger Fakt",
+                "description": "Kommt in deinen Channel und sagt einen zufälligen Fakt.\n Verwendung: ?fact"
+            },
+            "time": {
+                "brief": "Sagt die Zeit",
+                "description": "Kommt in deinen Channel und sagt die Uhrzeit.\n Verwendung: ?time"
+            },
+            "insult": {
+                "brief": "Beleidigt die angegebene Person",
+                "description": "Kommt in deinen Channel und beleidigt die Person.\n Verwendung: ?insult <Person>\n Beispiel: ?insult Mustermensch"
+            },
+            "joke": {
+                "brief": "Zufälliger Witz",
+                "description": "Kommt in deinen Channel und sagt einen zufälligen Witz.\n Verwendung: ?joke"
+            },
+            "sendLove": {
+                "brief": "Sendet Liebe an eine Person",
+                "description": "Kommt in deinen Channel und sagt etwas nettes zur angegebenen Person.\n Verwendung: ?sendLove <Person>\n Beispiel: ?sendLove Mustermensch"
+            },
+            "clear": {
+                "brief": "Löscht Nachrichten im Chat",
+                "description": "Löscht standardmäßig 10 Nachrichten im Chat.\n Verwendung: ?clear <menge>\n Beispiel: ?clear 10"
+            },
+            "mute": {
+                "brief": "Bot stumm schalten",
+                "description": "Stumm schalten. Nur für Admins. \n Verwendung: ?mute"
+            }
+        },
+        "en": {
+            "bot-description": "Wonderful bot, that can talk",
+            "weather": {
+                "brief": "Current weather for city",
+                "description": "Current weather for the specified city.\n Usage: ?weather <City>\n Example: ?weather Berlin"
+            },
+            "fact": {
+                "brief": "Random fact",
+                "description": "Appears in your channel and says a random fact.\n Usage: ?fact"
+            },
+            "time": {
+                "brief": "Says the time",
+                "description": "Appears in your channel and says the time.\n Usage: ?time"
+            },
+            "insult": {
+                "brief": "Insults the specified person",
+                "description": "Appears in your channel and insults the person.\n Usage: ?insult <Person>\n Example: ?insult Mustermensch"
+            },
+            "joke": {
+                "brief": "Random joke",
+                "description": "Appears in your channel and says a random joke.\n Usage: ?joke"
+            },
+            "sendLove": {
+                "brief": "Sends love to a person",
+                "description": "Appears in your channel and says something nice to the specified person.\n Usage: ?sendLove <Person>\n Example: ?sendLove Mustermensch"
+            },
+            "clear": {
+                "brief": "Clears the chat",
+                "description": "Clears the chat.\n Usage: ?clear"
+            },
+            "mute": {
+                "brief": "Mutes the bot",
+                "description": "Mutes the bot. Only for Admins. \n Usage: ?mute"
+            }
+            
+        }
+    },
+    "chat-texts": {
+        "de": {
+            "not-in-channel": "Anscheinend bist du nicht in einem Voicechannel.",
+            "error":"Da ist wohl was schief gelaufen... \n Bitte versuche es später erneut.",
+            "weather": {
+                "no-city": "Es wurde keine Stadt angegeben. Bitte versuche es später erneut.",
+                "no-weather": "Da ist wohl was schief gelaufen... \n Es konnte kein Wetter für die angegebene Stadt gefunden werden. Bitte versuche es später erneut."
+            },
+            "insult": {
+                "no-name": "Es wurde kein Name angegeben. Bitte versuche es erneut."
+            },
+            "sendLove": {
+                "no-name": "Es wurde kein Name angegeben. Bitte versuche es erneut."
+            },
+            "ping": "Pong! Ping beträgt {0}ms",
+            "mute": "Der Bot wird für {} Minuten stummgeschaltet.",
+            "mute-error": "Anscheinend besitzt du keine berechtigte Rolle"
+        },
+        "en": {
+            "not-in-channel": "It seems you're not in a voicechannel.",
+            "error":"Something went wrong... \n Please try again later.",
+            "weather": {
+                "no-city": "No city was specified. Please try again later.",
+                "no-weather": "Something went wrong... \n There was no weather for the specified city. Please try again later."
+            },
+            "insult": {
+                "no-name": "No name was specified. Please try again."
+            },
+            "sendLove": {
+                "no-name": "No name was specified. Please try again."
+            },
+            "ping": "Pong! Ping beträgt {0}ms",
+            "mute": "The bot will be muted for {} minutes.",
+            "mute-error": "It seems you don't have the required role"
+        }
+    }
+}

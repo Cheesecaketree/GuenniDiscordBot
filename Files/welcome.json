@@ -1,17 +1,21 @@
 {
-    "content": [
+    "de": [
         "Hallo {name}! Ich hoffe, es geht dir gut.",
         "Hey {name} du jhaggat!",
-        "{name} ist hier! Guten {tageszeit}!",
-        "Ich wünsche dir einen guten {tageszeit} {name}!",
+        "{name} ist hier! Guten {ToD}!",
+        "Ich wünsche dir einen guten {ToD} {name}!",
         "Hallo {name}. Du bist richtig schwitze!",
         "Hallo {name}. Du bist wundervoll!",
         "Ich mag dich {name}!",
-        "Guten {tageszeit} {name}!",
+        "Guten {ToD} {name}!",
         "Hey {name}, kannst du mich audisch verstehen?",
         "Viel Spaß bei was auch immer du hier machst, {name}.",
         "Yo {name} ich kann logischer denken als du!",
         "Hiermit zeige ich {name} für das Beitreten dieses Kanals an!",
-        "Guten {tageszeit} {name}! Ich hoffe es geht dir gut."
+        "Guten {ToD} {name}! Ich hoffe es geht dir gut."
+    ],
+    "en": [
+        "Hello {name}! I hope you are doing well.",
+        "{name} is here!"
     ]
 }
