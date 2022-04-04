@@ -7,18 +7,26 @@ from datetime import datetime
 import random
 import string
 
-def get_uhrzeit():
+def load_json(path):
+    with open(path, "r") as f:
+        data = json.load(f)
+        return data
+
+language = load_json("config.json")["language"]
+
+
+def get_time():
 	filename = f"uhrzeit_{randStr(N=4)}"
 	now = datetime.now()
 	generate_voice(f"Es ist gerade {now.strftime('%H')} Uhr {now.strftime('%M')}", filename)
 	return filename
 
 def get_status():
-    with open("Files/status.json", "r") as f:
+    with open(f"Files/status.json", "r") as f:
         status = json.load(f)
     return status
 
-# gibt die Tageszeit als String zurück. Definition von Tageszeiten ist nicht ganz klar
+# Time of day (morning, afternoon, evening, night,...)
 def get_time_of_day():
 	now = datetime.now()
 	h = now.hour
@@ -37,12 +45,11 @@ def get_time_of_day():
 		return "Nacht"
 
 '''
-Generiert Texte für verschiedene Sprachausgaben.
-Usecase gibt an, für welches Event ein Text benötig wird. Dementsprechend wird dann
-auf die Datei mit den passenden Texten zugegriffen
+Generates the texts for different functions relying on speech output.
+usecase is determines the file used to get the text templates.
 '''
-def generate_text(usecase,u=None, t=None, o=None):
-	validuse = {
+def generate_text(usecase,name=None, target=None, author=None):
+	valid_use = {
 	"welcome":"Files/welcome.json",
 	"insult":"Files/insult.json",
 	"love":"Files/love.json",
@@ -51,19 +58,24 @@ def generate_text(usecase,u=None, t=None, o=None):
 	"stream":"Files/stream.json",
 	"deaf":"Files/deaf.json"
 	}
-	
-	if usecase in validuse:
+ 
+	if usecase in valid_use:
 		filename = f"{usecase}{randStr(N=4)}"
-		nachricht = get_random_item(validuse[usecase]).format(name=u,ziel=t,author=o, tageszeit=get_time_of_day())
-		generate_voice(nachricht, filename)
+		with open(valid_use[usecase]) as f:
+			json_obj = json.load(f)
+			content = json_obj[language]
+   
+		message = random.choice(content).format(name=name,target=target,author=author, ToD=get_time_of_day())
+		generate_voice(message, filename)
 		return filename
 
 	else:
 		logging.warning(f"ERROR in generate_text with usecase: {usecase}")
 		return
 
+# TOKEN for weather API must be moved to config or somewhere else!!
 def weather_message(pCity):
-	filename = f"wetter_{randStr(N=4)}"
+	filename = f"weather_{randStr(N=4)}"
 	city = remove_umlaut(pCity.lower())
 	url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid=ead5112e1fc36110be448eeb3a357bb2&units=metric'
 	res = requests.get(url.format(city))
@@ -106,7 +118,7 @@ def weather_message(pCity):
 	generate_voice(nachricht, filename)
 	return filename
 
-def generate_voice(pText, name, language = 'de'): 
+def generate_voice(pText, name, language = language): 
 	nachricht = gTTS(text=pText, lang=language, slow=False)
 	filename = name + ".mp3"
 	nachricht.save(filename)
@@ -143,16 +155,3 @@ def remove_umlaut(string):
 
     string = string.decode('utf-8')
     return string
-
-
-def get_config(name):
-	with open('config.json', "r") as file:
-		config = json.load(file)
-		data = config[name]
-		return data
-	
-def get_random_item(path):
-	with open(path) as file:
-		json_obj = json.load(file)
-		return json_obj['content']
-

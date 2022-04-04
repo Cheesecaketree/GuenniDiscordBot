@@ -1,5 +1,6 @@
 {
     "token": "",
-    "language": "en",
-    "privileged-roles": ["@admin", "@günnimensch", "@everyone"]
+    "language": "de",
+    "privileged-roles": ["@admin", "@günnimensch", "@everyone"],
+    "max-mute": "120"
 }

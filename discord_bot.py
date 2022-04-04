@@ -1,17 +1,24 @@
+from operator import is_
 import backgroundstuff
 import discord
 from discord.ext import commands
 import random
 import logging
 import asyncio
+import time
+import json
 from my_queue import Queue
 
-logging.basicConfig(format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',filename='logfile.log', level=logging.INFO)
-description = '''Ein super toller Bot der tolle Sachen machen kann!'''
-bot = commands.Bot(command_prefix='?', description=description)
-bot.remove_command('help')
-status = backgroundstuff.get_config("status")
+logging.basicConfig(format='%(asctime)s | %(name)s | %(levelname)s | %(message)s',filename='logfile.log', level=logging.DEBUG)
+language = backgroundstuff.load_json("config.json")["language"]
+descriptions = backgroundstuff.load_json("Files/texts.json")["descriptions"][language]
+chat_texts = backgroundstuff.load_json("Files/texts.json")["chat-texts"][language]
+bot_description = descriptions["bot-description"]
+status = backgroundstuff.load_json("Files/status.json")[language]
 channel_queues = []
+
+bot = commands.Bot(command_prefix='?', description=bot_description)
+bot.remove_command('help')
 
 bot.load_extension("cogs.chatcog")
 
@@ -22,154 +29,190 @@ async def on_ready():
     print(bot.user.id)
     print('------')
     logging.info("--- Bot ready ---")
-    
-# Eventgesteuerte Funktionen starten
+
+# eventcontrolled functions
 @bot.event
 async def on_voice_state_update(member, before, after):
     if member.bot: return
+    if member.voice is None: return
+    if is_muted(member): return # uses member to get voice channel
     
-    if before.channel is None and after.channel is not None:
+    if before.channel is not after.channel and after.channel is not None:
         await asyncio.sleep(0.5)
         await voice_events("welcome", member)
-        await bot.change_presence(activity=discord.Game(random.choice(status))) # ändert den Status des Bots
-    elif after.self_deaf:
+        await bot.change_presence(activity=discord.Game(random.choice(status))) # changes discord status of bot
+    elif after.self_deaf and not before.self_deaf:
         await voice_events("deaf", member)
-    elif after.self_stream:
+    elif after.self_stream and not before.self_stream:
         await voice_events("stream", member)
     else: return
 
-# reagiert auf Events in Voicechanneln
+# starts eventcontrolled functions
 async def voice_events(pEvent, member):
     username = str(member)[:-5]
     channel = member.voice.channel
     channel_name = channel.name
     logging.info(f"{pEvent} triggered for {username}")
 
-    file = backgroundstuff.generate_text(usecase=pEvent, u=username)
+    file = backgroundstuff.generate_text(usecase=pEvent, name=username)
 
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
 
 '''
-AB HIER SIND DIE COMMANDS
+Commands
 '''
 
-# Sagt das Wetter für den angegebenen Ort
-@bot.command(brief="Aktuelles Wetter", description="Günni kommt in deinen Voicechannel und sagt das Wetter für den angegebenen Ort.\n Verwendung: ?wetter *STADT*")
-async def wetter(ctx, *args):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+# weather for given city (Still German!!!)
+# TOKEN for weather API must be moved to config or somewhere else!!
+@bot.command(brief=descriptions["weather"]["brief"], description=descriptions["weather"]["description"])
+async def weather(ctx, city=""):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
-    city = ' '.join(args)
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
+    if city == "":
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["weather"]["no-city"])
+            return
+        
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
+    
     async with ctx.channel.typing():
         file = backgroundstuff.weather_message(city)
-
         if file is None:
-            await ctx.send("Etwas ist schief gelaufen :(")
-            await ctx.send("Sicher, dass es diese Stadt gibt und du dich nicht verschrieben hast?")
+            await ctx.send(chat_texts["weather"]["no-weather"])
             return
-
-        channel_queue_enqueue(file, channel_name)
+    channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
-# Sagt einen zufälligen Fakt
-@bot.command(brief='Sagt einen Fakt',description='Günni kommt in deinen Channel und sagt einen zufälligen Fakt.\n Nichts weiter zu beachten :)')
-async def fakt(ctx):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+# random facts
+@bot.command(brief=descriptions["fact"]["brief"],description=descriptions["fact"]["description"])
+async def fact(ctx):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
 
     file = backgroundstuff.generate_text("fact")
     if file is None:
-        await ctx.send("Es gab einen Fehler! Bitte später erneut versuchen")
-        return
-
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["error"])
+            return
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
 # Sagt die Uhrzeit
-@bot.command(brief='Uhrzeit', description="Sagt die aktuelle Uhrzeit.")
-async def uhrzeit(ctx):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+@bot.command(brief=descriptions["timeOD"]["brief"], description=descriptions["timeOD"]["description"])
+async def timeOD(ctx):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
-
-    file = backgroundstuff.get_uhrzeit()
+    file = backgroundstuff.get_time()
     if file is None:
-        await ctx.send("Es gab einen Fehler! Bitte später erneut versuchen")
-        return
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["error"])
+            return
     
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
 # Beleidigt jemanden
-@bot.command(brief='Kann Leute beleidigen.', description="Kommt zu dir und beleidigt die angegebene Person.\n Verwendung: ?beleidige *Name*")
-async def beleidige(ctx, *args):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+@bot.command(brief=descriptions["insult"]["brief"], description=descriptions["insult"]["description"])
+async def insult(ctx, name=""):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
+    if name == "":
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["insult"]["no-name"])
+            return
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
-    target = ' '.join(args)
-    origin = str(member)[:-5]
-
-    file = backgroundstuff.generate_text("insult", t=target, o=origin)
+    author = str(member)[:-5]
+    file = backgroundstuff.generate_text("insult", target=name, author=author)
     if file is None:
-        await ctx.send("Es gab einen Fehler! Bitte später erneut versuchen")
-        return
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["error"])
+            return
     
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
-# Erzählt einen Witz
-@bot.command(brief='Erzählt einen Witz', description="Kommt zu dir und erzählt einen Witz")
-async def witz(ctx):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+
+@bot.command(brief=descriptions["joke"]["brief"], description=descriptions["joke"]["description"])
+async def joke(ctx):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
-
     file = backgroundstuff.generate_text("joke")
     if file is None:
-        await ctx.send("Es gab einen Fehler! Bitte später erneut versuchen")
-        logging.warning("Error in 'witz'. File is None")
-        return
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["error"])
+            logging.warning("Error in 'joke'. File is None")
+            return
 
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
 
-# Sagt was nettes
-@bot.command(brief='Kann Leute mögen.', description="Kommt zu dir und sagt, dass du die angegebene Person magst. \n Voll auf liebe und so :) \n Verwendung: ?sendeLiebe *Name*")
-async def sendeLiebe(ctx, *args):
-    if ctx.message.author.voice is None:
-        await ctx.send("Für diesen Befehl musst du in einem voice channel sein")
+
+@bot.command(brief=descriptions["sendLove"]["brief"], description=descriptions["sendLove"]["description"])
+async def sendLove(ctx, name):
+    if is_muted(ctx.message.author):
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["muted"])
         return
+    if ctx.message.author.voice is None:
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["not-in-channel"])
+            return
+    if name == "":
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["sendLove"]["no-name"])
+            return
     channel_name = ctx.message.author.voice.channel.name
     member = ctx.message.author
-    target = ' '.join(args)
     origin = str(member)[:-5]
-
-    file = backgroundstuff.generate_text("love", t=target, o=origin)
+    file = backgroundstuff.generate_text("love", target=name, author=origin)
     if file is None:
-        await ctx.send("Es gab einen Fehler! Bitte später erneut versuchen")
-        logging.warning("Error in 'sendeLiebe'. File is None")
-        return
+        async with ctx.channel.typing():
+            await ctx.send(chat_texts["error"])
+            logging.warning("Error in 'sendLove'. File is None")
+            return
     
     channel_queue_enqueue(file, channel_name)
     await queue_abspielen(member)
-
-# Löscht Nachrichten in einem Channel
-@bot.command(hidden=True, pass_context = True, brief="Löscht Nachrichten im Channel", description="Löscht standardmäßig 5 Nachrichten, mehr, wenn mehr angegeben wird.")
-async def clear(ctx, amount=5):
-    await ctx.channel.purge(limit=amount)
 
 
 # Verbindet mit einem Channel, wenn es möglich ist
@@ -183,7 +226,8 @@ async def connect_when_possible(member):
     await member_voice.connect()
     logging.debug("Bot connected")
 
-# Spielt files aus der Queue ab
+
+# Plays files from queue for channel of member
 async def queue_abspielen(member):
     await connect_when_possible(member)
 
@@ -196,7 +240,7 @@ async def queue_abspielen(member):
     while True:
         await connect_when_possible(member)
         datei = channel_queue_dequeue(queue_index) + ".mp3"
-        logging.debug("f{datei} wurde aus queue gelöscht")
+        logging.debug("f{datei} was deleted from queue")
         voice_connection.play(discord.FFmpegPCMAudio(str(datei)))
         logging.info(f"Now playing {datei}")
         while voice_connection.is_playing():
@@ -212,6 +256,20 @@ async def queue_abspielen(member):
             return
         logging.debug("Queue not empty. Bot is playing next file")
 
+def is_muted(member):
+    events = backgroundstuff.load_json("Files/events.json")
+    channel = member.voice.channel
+    channel_name = (channel.name).lower()
+    
+    if channel_name in events["bot-mute"]:
+        mute_time = events["bot-mute"][channel_name]
+        if int(time.time()) > mute_time:
+            del events["bot-mute"][channel_name]
+            with open ("Files/events.json", "w") as f:
+                json.dump(events, f)
+            return False
+        else:
+            return True
 
 def get_channel_queue_pos(channel_name):
 	for queue in channel_queues:
@@ -236,4 +294,7 @@ def channel_queue_enqueue(filename, channel_name):
         logging.critical("filename could not be added to channel queue! channel_queue_enqueue()")
 
 
-bot.run(backgroundstuff.get_config('token'))
+token = backgroundstuff.load_json("config.json")["token"]
+if token == "":
+    token = backgroundstuff.load_json("token.json")["token"]
+bot.run(token)
