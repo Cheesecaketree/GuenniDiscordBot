@@ -58,7 +58,7 @@ class ChatCog(commands.Cog):
         author_roles = ctx.message.author.roles
         
         for role in author_roles:
-            if backgroundstuff.remove_umlaut(role.name) not in allowed_roles:
+            if role.name not in allowed_roles:
                 await ctx.send(self.chat_texts["mute"]["role-error"])
                 return
         max_mute = config["max-mute"]
@@ -94,7 +94,7 @@ class ChatCog(commands.Cog):
         author_roles = ctx.message.author.roles
         
         for role in author_roles:
-            if backgroundstuff.remove_umlaut(role.name) not in allowed_roles:
+            if role.name not in allowed_roles:
                 await ctx.send(self.chat_texts["unmute"]["role-error"])
                 return
         
