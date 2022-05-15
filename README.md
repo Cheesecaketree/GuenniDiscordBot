@@ -1,9 +1,7 @@
 # GuenniDiscordBot
 
-### The idea
-
-It all started a few years ago. I was bored  wanted to make the Discord Server I spend a lot of time on a little bit more interesting and fun. So I gave myself the callenge to build a little Discord Bot.
-Because there are a lot of bots already out there I wanted to try something I haven't seen before on a Discord server. After some time the idea to welcome everyone that joins a voice channel was born and the development started.
+This bot is a small project I started a few years ago to entertain my friends discord server with another strange and fun bot. 
+The main feature of this bot is joining voice channels and using text to speech to talk.
 
 
 
